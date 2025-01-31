@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- Previous head content remains the same -->
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Premium Developer Profile</title>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <style>
+      /* Previous styles remain the same until the card class */
+      :root {
+         --primary: #6366f1;
+         --primary-dark: #4f46e5;
+         --secondary: #8b5cf6;
+         --accent: #f43f5e;
+         --success: #10b981;
+         --glass-bg: rgba(255, 255, 255, 0.95);
+         --card-shadow: rgba(17, 12, 46, 0.15);
+         --text-primary: #1e293b;
+         --text-secondary: #475569;
+      }
+
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+      }
+
+      @keyframes gradientBG {
+         0% {
+            background-position: 0% 50%;
+         }
+
+         50% {
+            background-position: 100% 50%;
+         }
+
+         100% {
+            background-position: 0% 50%;
+         }
+      }
+
+      @keyframes fadeIn {
+         from {
+            opacity: 0;
+            transform: translateY(20px);
+         }
+
+         to {
+            opacity: 1;
+            transform: translateY(0);
+         }
+      }
+
+      @keyframes pulse {
+         0% {
+            transform: scale(1);
+         }
+
+         50% {
+            transform: scale(1.05);
+         }
+
+         100% {
+            transform: scale(1);
+         }
+      }
+
+      body {
+         font-family: 'Inter', system-ui, -apple-system, sans-serif;
+         min-height: 100vh;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         background: linear-gradient(-45deg, #0ea5e9, #6366f1, #8b5cf6, #ec4899);
+         background-size: 400% 400%;
+         animation: gradientBG 15s ease infinite;
+         padding: 20px;
+      }
+
+      .card {
+         background: var(--glass-bg);
+         backdrop-filter: blur(20px);
+         border-radius: 40px;
+         box-shadow:
+            0 20px 40px var(--card-shadow),
+            0 0 100px rgba(99, 102, 241, 0.1);
+         padding: 2.5rem;
+         width: 95%;
+         max-width: 900px;
+         display: grid;
+         grid-template-columns: 280px 1fr;
+         gap: 2.5rem;
+         position: relative;
+         border: 1px solid rgba(255, 255, 255, 0.2);
+         animation: fadeIn 0.6s ease-out;
+      }
+
+      .profile-sidebar {
+         text-align: center;
+         min-width: 0;
+         /* Prevent overflow */
+      }
+
+      .profile-image-container {
+         width: 180px;
+         height: 180px;
+         margin: 0 auto 1.5rem;
+         position: relative;
+         animation: pulse 6s ease-in-out infinite;
+      }
+
+      .profile-image {
+         width: 100%;
+         height: 100%;
+         border-radius: 30px;
+         object-fit: cover;
+         border: 4px solid white;
+         box-shadow:
+            0 10px 20px rgba(0, 0, 0, 0.1),
+            0 0 0 10px rgba(99, 102, 241, 0.1);
+      }
+
+      .status-indicator {
+         position: absolute;
+         bottom: 15px;
+         right: 15px;
+         width: 24px;
+         height: 24px;
+         background: var(--success);
+         border-radius: 50%;
+         border: 4px solid white;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .name {
+         font-size: 2rem;
+         font-weight: 800;
+         background: linear-gradient(135deg, var(--primary), var(--secondary));
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         margin-bottom: 0.75rem;
+         line-height: 1.2;
+         word-wrap: break-word;
+      }
+
+      .job-title {
+         font-size: 1.1rem;
+         color: var(--text-secondary);
+         margin-bottom: 1.5rem;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.5rem;
+         padding: 0 0.5rem;
+      }
+
+      .availability {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+         padding: 0.75rem 1.25rem;
+         background: linear-gradient(135deg, var(--primary), var(--secondary));
+         color: white;
+         border-radius: 12px;
+         font-weight: 500;
+         margin-bottom: 1.5rem;
+         box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+         font-size: 0.9rem;
+      }
+
+      .main-content {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         min-width: 0;
+         /* Prevent overflow */
+         overflow-wrap: break-word;
+      }
+
+      .section-title {
+         font-size: 1.1rem;
+         color: var(--primary);
+         margin-bottom: 1rem;
+         font-weight: 600;
+      }
+
+      .tech-stack {
+         display: flex;
+         gap: 0.75rem;
+         margin-bottom: 1.5rem;
+         flex-wrap: wrap;
+      }
+
+      .tech-badge {
+         padding: 0.6rem 1rem;
+         border-radius: 12px;
+         font-size: 0.9rem;
+         font-weight: 600;
+         transition: all 0.3s ease;
+         cursor: default;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+         white-space: nowrap;
+      }
+
+      .tech-badge:nth-child(1) {
+         background: #e0e7ff;
+         color: #4f46e5;
+      }
+
+      .tech-badge:nth-child(2) {
+         background: #fae8ff;
+         color: #9333ea;
+      }
+
+      .tech-badge:nth-child(3) {
+         background: #f0fdf4;
+         color: #16a34a;
+      }
+
+      .tech-badge:nth-child(4) {
+         background: #fff1f2;
+         color: #e11d48;
+      }
+
+      .tech-badge:hover {
+         transform: translateY(-3px);
+         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .bio {
+         line-height: 1.6;
+         color: var(--text-secondary);
+         margin-bottom: 1.5rem;
+         font-size: 1rem;
+         overflow-wrap: break-word;
+         word-wrap: break-word;
+      }
+
+      .details {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         gap: 1rem;
+         margin-bottom: 1.5rem;
+      }
+
+      .detail-item {
+         display: flex;
+         align-items: center;
+         gap: 0.75rem;
+         padding: 0.75rem;
+         background: rgba(255, 255, 255, 0.5);
+         border-radius: 12px;
+         transition: all 0.3s ease;
+         font-size: 0.9rem;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         white-space: nowrap;
+      }
+
+      .social-links {
+         display: flex;
+         gap: 0.75rem;
+         margin-bottom: 1.5rem;
+      }
+
+      .social-link {
+         flex: 1;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.5rem;
+         padding: 0.75rem;
+         border-radius: 12px;
+         text-decoration: none;
+         color: var(--text-primary);
+         background: white;
+         transition: all 0.3s ease;
+         font-weight: 500;
+         font-size: 0.9rem;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+         white-space: nowrap;
+      }
+
+      .time {
+         text-align: center;
+         padding: 0.75rem;
+         background: white;
+         border-radius: 12px;
+         color: var(--text-secondary);
+         font-weight: 500;
+         font-size: 0.9rem;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      @media (max-width: 800px) {
+         .card {
+            grid-template-columns: 1fr;
+            padding: 1.5rem;
+            gap: 1.5rem;
+         }
+
+         .profile-image-container {
+            width: 150px;
+            height: 150px;
+         }
+
+         .details {
+            grid-template-columns: 1fr;
+         }
+
+         .social-links {
+            flex-direction: column;
+         }
+
+         .social-link {
+            width: 100%;
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <div class="card">
+      <div class="profile-sidebar">
+         <div class="profile-image-container">
+            <img data-testid="profilePicture" src="me.jpg" alt="Profile Picture"
+               class="profile-image">
+            <div class="status-indicator"></div>
+         </div>
+
+         <h1 data-testid="fullName" class="name">Tata Theclaire</h1>
+         <h2 data-testid="jobTitle" class="job-title">
+            <i class="fas fa-laptop-code"></i>
+            Frontend Engineer
+         </h2>
+
+         <div class="availability">
+            <i class="fas fa-check-circle"></i>
+            Available for Projects
+         </div>
+      </div>
+
+      <div class="main-content">
+         <div>
+            <h3 class="section-title">Technologies</h3>
+            <div class="tech-stack">
+               <span class="tech-badge">React</span>
+               <span class="tech-badge">Next.js</span>
+               <span class="tech-badge">TypeScript</span>
+               <span class="tech-badge">Tailwind</span>
+            </div>
+
+            <h3 class="section-title">About Me</h3>
+            <p data-testid="shortBio" class="bio">
+               Frontend engineer with a passion for creating  high-performance web applications.
+               Specialized in React ecosystem and modern JavaScript.esperirnced in  Leading team in school based project to deliver user friendly sites.
+            </p>
+
+            <div class="details">
+               <div data-testid="currentLocation" class="detail-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Buea, Cameroon
+               </div>
+
+               <div data-testid="emailAddress" class="detail-item">
+                  <i class="fas fa-envelope"></i>
+                  tatatheclaire@gmail.com
+               </div>
+
+               <div class="detail-item">
+                  <i class="fas fa-code-branch"></i>
+                  Eager to contribute
+               </div>
+
+               <div class="detail-item">
+                  <i class="fas fa-star"></i>
+                  school based project esperience
+               </div>
+            </div>
+         </div>
+
+         <div>
+            <div data-testid="socialLinks" class="social-links">
+               <a href="https://github.com/TATA-THECLAIRE/" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <i class="fab fa-github"></i>
+                  GitHub
+               </a>
+               <a href="https://www.linkedin.com/in/tata-theclaire-3824b8298/" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <i class="fab fa-linkedin"></i>
+                  LinkedIn
+               </a>
+             
+            </div>
+
+            <div data-testid="currentTimeUTC" class="time" id="utcTime">
+               <i class="far fa-clock"></i>
+               Loading time...
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <script>
+      function updateUTCTime() {
+         const timeElement = document.getElementById('utcTime');
+         const now = new Date();
+         const utcString = now.toUTCString();
+         timeElement.innerHTML = `<i class="far fa-clock"></i> ${utcString}`;
+      }
+
+      updateUTCTime();
+      setInterval(updateUTCTime, 1000);
+   </script>
+</body>
+
+</html>
